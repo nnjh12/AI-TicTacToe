@@ -63,6 +63,12 @@ def game_over(state) -> bool:
     if((state != "_").all()): return True
     return False
 
+# TODO: implement infer_action 
+def infer_action(old_state, new_state):
+    r = np.where((old_state != new_state))[0][0]
+    c = np.where((old_state != new_state))[1][0]
+    return (r, c)
+
 def children_of(state):
     symbol = get_player(state)
     children = []
