@@ -17,7 +17,6 @@ def initial_state(board_size: int):
 
 # TODO: update valid_actions for tic tac toe
 def valid_actions(state) -> list:
-    print(state)
     valid_positions = []
     for r, c in np.ndindex(state.shape):
         if (state[r, c] == "_"): 
