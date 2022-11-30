@@ -40,8 +40,8 @@ class Node:
 
         # empirical average child utilities
         # special case to handle 0 denominator for never-visited children
-        Q = [sign * c.score_total / (c.visit_count+1) for c in children]
-        # Q = [sign * c.score_total / max(c.visit_count, 1) for c in children]
+        # Q = [sign * c.score_total / (c.visit_count+1) for c in children]
+        Q = [sign * c.score_total / max(c.visit_count, 1) for c in children]
 
         return Q
 
@@ -65,6 +65,8 @@ def uct(node):
 # choose_child = explore
 choose_child = uct
 
+# TODO: update rollout to have parameter choose_child
+# choose_child can be exploit, explore, or uct
 def rollout(node):
     if is_leaf(node.state): result = score(node.state)
     else: result = rollout(choose_child(node))
@@ -72,3 +74,12 @@ def rollout(node):
     node.score_total += result
     node.score_estimate = node.score_total / node.visit_count
     return result
+
+# TODO: implement mcts
+# choose_child can be exploit, explore, or uct
+def mcts(state, num_rollouts: int):
+    node = Node(state)
+    for r in range(num_rollouts):
+        rollout(node)
+    next_state = choose_child(node).state
+    return next_state

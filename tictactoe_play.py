@@ -2,7 +2,7 @@
 # Code adapted from play_mancala.py
 
 from tictactoe_helpers import *
-from tictactoe_mcts import *
+from tictactoe_AI import *
 import numpy as np
 
 # TODO: implement get_board_size
@@ -46,10 +46,13 @@ if __name__ == "__main__":
         print(state)
         if (cur_strategy == "human"): 
             action = get_user_action(state)
-        if (cur_strategy == "baseline AI"): 
+            state = perform_action(cur_player, action, state)
+        elif (cur_strategy == "baseline AI"): 
             action = baseline_AI(state)
             print("baseline AI chose %s" % (str(action)))
-        state = perform_action(cur_player, action, state)
+            state = perform_action(cur_player, action, state)
+        else :
+            state = mcts(state, 1000)
     
     game_score = score(state)
     if (game_score == 0): print("Game over, it is tied.")
