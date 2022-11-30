@@ -13,12 +13,20 @@ def get_board_size():
         if board in boards: return int(board)
         print("Invalid board size, try again.")
 
+#TODO: implement get_strategy
+def get_strategy(player):
+    strategies = ["human", "baseline AI", "tree-based AI"]
+    prompt = "Choose a strategies for player %s (%s): " % (player,", ".join(strategies))
+    while True:
+        strategy = input(prompt)
+        if strategy in strategies: return strategy
+        print("Invalid strategy, try again.")
+
 #TODO: update get_user_action for tic tac toe
 def get_user_action(state):
     actions = list(map(str, valid_actions(state)))
-    print(actions)
     player = get_player(state)
-    prompt = "Choose an action (%s): " % (",".join(actions))
+    prompt = "Choose an action (%s): " % (", ".join(actions))
     while True:
         action = input(prompt)
         if action in actions: return tuple(map(int, action[1:5].split(', ')))
@@ -28,16 +36,18 @@ def get_user_action(state):
 if __name__ == "__main__":
 
     board_size = get_board_size()
+    x_strategy = get_strategy("X")
+    o_strategy = get_strategy("O")
     state = initial_state(board_size)
     while not game_over(state):
         player = get_player(state)
-        print(state)
+        #print(state)
         if player == "X":
-            print("--- X's turn --->")
+            print("--- X(%s)'s turn --->" % (x_strategy))
             action = get_user_action(state)
             state = perform_action(player, action, state)
         else:
-            print("--- O's turn --->")
+            print("--- O(%s)'s turn --->" % (o_strategy))
             action = get_user_action(state)
             state = perform_action(player, action, state)
     
