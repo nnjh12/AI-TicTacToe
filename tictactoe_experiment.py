@@ -13,7 +13,7 @@ def experiment(_board_size, x_strategy, o_strategy):
     board_size = _board_size
     strategies = (x_strategy, o_strategy)
     state = initial_state(board_size)
-    while(total_rounds < 10):
+    while(total_rounds < 100):
         total_rounds += 1
         while not game_over(state):
             cur_player = get_player(state)
