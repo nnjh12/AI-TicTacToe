@@ -24,7 +24,7 @@ conda install numpy
     * Strategy options are `human, baseline AI, or MCTS`.
     * If the strategy is human, you will be asked to select the next action from the list of valid actions.
     * The format of valid action is `(r, c)` where r is an index of the row and c is an index of the column.
-    * An action `(0, 1)` means first row and second column.
+    * An action `(0, 1)` means the place at first row and second column.
     * If the strategy is AI or MCTS, the next action will be selected by computer.
 * Advanced rules
     * In the grid, there is a 'wall' that neither player can use.
