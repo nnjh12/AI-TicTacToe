@@ -25,7 +25,11 @@ conda install numpy
     * If the strategy is human, you will be asked to select the next action from the list of valid actions.
     * The format of valid action is `(r, c)` where r is an index of the row and c is an index of the column.
     * An action `(0, 1)` means first row and second column.
-    * If the strategy is AI or MCTS, the next action will be selected automatically.
+    * If the strategy is AI or MCTS, the next action will be selected by computer.
+* Advanced rules
+    * In the grid, there is a 'wall' that neither player can use.
+    * For a grid of 3x3, 4x4, or 5x5, the rule is the same as classic tic tac toe.
+    * For any grid of 6x6 or greater, the goal is to get five in a row. (referred from [this article](https://www.thesprucecrafts.com/tic-tac-toe-game-rules-412170#:~:text=A%20relatively%20simple%20game%20usually,20%2Dby%2D20%20grid))
 
 ## How to run the computer experiments
 * Run `tictactoe_experiment.py`
