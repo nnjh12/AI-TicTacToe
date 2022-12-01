@@ -1,4 +1,4 @@
-# Code adapted from https://colab.research.google.com/drive/1UfTsTgcqeachgmd7GH1pC72AG_CXD3sC?usp=sharing
+# Code adapted from https://colab.research.google.com/drive/1JhOppwXwm47yk-AK7y7L5WTaaNDgCWXD?authuser=1
 # Code adapted from play_mancala.py
 
 from tictactoe_helpers import *
