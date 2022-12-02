@@ -1,4 +1,4 @@
-# Code adapted from https://colab.research.google.com/drive/1UfTsTgcqeachgmd7GH1pC72AG_CXD3sC?usp=sharing
+# Code adapted from https://colab.research.google.com/drive/1JuNdI_zcT35MWSY4-h_2ZgH7IBe2TRYd?usp=sharing
 
 import random
 import numpy as np
@@ -18,12 +18,19 @@ class Node:
         self.score_total = 0
         self.score_estimate = 0
         self.child_list = None
+    
+    def __repr__(self): 
+        return "(%s, %s, %s)" % (self.visit_count, self.score_total, self.score_estimate)
+
+    def __str__(self): 
+        return "(%s, %s, %s)" % (self.visit_count, self.score_total, self.score_estimate)
 
     def children(self):
         # Only generate children the first time they are requested and memoize
         if self.child_list == None:
             self.child_list = list(map(Node, children_of(self.state)))
         # Return the memoized child list thereafter
+        # print([c for c in self.child_list])
         return self.child_list
 
     # Helper to collect child visit counts into a list
@@ -75,11 +82,27 @@ def rollout(node):
     node.score_estimate = node.score_total / node.visit_count
     return result
 
+# TODO: update rollout to have parameter depth to track how many nodes are processed during one roll out
+def rollout(node, depth):
+    depth += 1
+    leaf_depth = -1
+    if is_leaf(node.state):
+        leaf_depth = depth
+        result = score(node.state), leaf_depth
+    else:
+        result = rollout(choose_child(node), depth)
+    node.visit_count += 1
+    node.score_total += result[0]
+    node.score_estimate = node.score_total / node.visit_count
+    # print(result)
+    return result
+
 # TODO: implement mcts
-# choose_child can be exploit, explore, or uct
 def mcts(state, num_rollouts: int):
+    num_nodes_processed = 0
     node = Node(state)
     for r in range(num_rollouts):
-        rollout(node)
+        num_nodes_processed += rollout(node, -1)[1]
     next_state = choose_child(node).state
-    return next_state
+    # print(num_nodes_processed)
+    return next_state, num_nodes_processed

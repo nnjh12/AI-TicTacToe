@@ -63,7 +63,7 @@ def play_tictactoe():
                 print("%s(baseline AI) chose %s" % (cur_player, str(action)))
             else:
                 old_state = state
-                state = mcts(state, 1000)
+                state = mcts(state, 1000)[0]
                 print("%s(MCTS) chose %s" % (cur_player, str(infer_action(old_state, state))))
         
         print(state)

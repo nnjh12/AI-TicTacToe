@@ -1,3 +1,5 @@
+from tictactoe_helpers import *
+
 def play_tictactoe():
     board_size = get_board_size()
     strategy = [get_strategy("X"), get_strategy("O")]
@@ -26,3 +28,19 @@ def play_tictactoe():
     if (game_score == 1): print("Game over, player X wins.")
     if (game_score == -1): print("Game over, player O wins.")
     return game_score
+
+node = Node(initial_state(3))
+
+# TODO: update rollout to have parameter choose_child
+# choose_child can be exploit, explore, or uct
+def rollout(node, processed_nodes):
+    processed_nodes += 1
+    if is_leaf(node.state): result = score(node.state)
+    else: result = rollout(choose_child(node))
+    node.visit_count += 1
+    node.score_total += result
+    node.score_estimate = node.score_total / node.visit_count
+    print(processed_nodes)
+    return result
+
+rollout(state, 0)
