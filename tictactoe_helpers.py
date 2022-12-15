@@ -15,6 +15,12 @@ def initial_state(board_size: int):
     board[wall_positon[0], wall_positon[1]] = "W"
     return board
 
+def initial_state_encode(board_size: int):
+    board = np.array([[0]*board_size]*board_size)
+    wall_positon = random_wall(board_size)
+    board[wall_positon[0], wall_positon[1]] = 9
+    return board
+
 # TODO: update valid_actions for tic tac toe
 def valid_actions(state) -> list:
     valid_positions = []

@@ -34,7 +34,7 @@ def get_user_action(state):
 
 # TODO: implement end_game
 def end_game():
-    prompt = "Do you want to play agian?(y/n): "
+    prompt = "Do you want to play again?(y/n): "
     end_game = input(prompt) == "n"
     return end_game
 
