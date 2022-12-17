@@ -72,12 +72,6 @@ def encode(state):
     onehot = (symbols == state).float()
     return onehot
 
-# Generate a lot of training/testing data
-print("Training data:")
-training_examples = generate(num_examples = 500, size=5, num_rollouts=50)
-print("\nTesting data:")
-testing_examples = generate(num_examples = 500, size=5, num_rollouts=50)
-
 # Augment data with rotations and reflections
 def augment(states, results):
     augmented_states = []
@@ -89,11 +83,6 @@ def augment(states, results):
             augmented_states.append(tr.fliplr(rot))
         augmented_results += [result] * 8
     return augmented_states, augmented_results
-
-# augment training data
-print(len(training_examples[0]))
-training_examples = augment(*training_examples)
-print(len(training_examples[0]))
 
 # Defines a network with two fully-connected layers and tanh activation functions
 class LinNet(tr.nn.Module):
@@ -116,13 +105,28 @@ def batch_error(net, batch):
 
 # Trains the network on some generated data
 if __name__ == "__main__":
+    
+    # Make the network and optimizer
+    net = LinNet(size=5, hid_features=16)
+    optimizer = tr.optim.SGD(net.parameters(), lr=0.001)
+
+    # Generate a lot of training/testing data
+    print("Training data:")
+    training_examples = generate(num_examples = 50, size=5, num_rollouts=50)
+    print("\nTesting data:")
+    testing_examples = generate(num_examples = 50, size=5, num_rollouts=50)
+
+    # augment training data
+    print(len(training_examples[0]))
+    training_examples = augment(*training_examples)
+    print(len(training_examples[0]))
 
     # whether to loop over individual training examples or batch them
     batched = True
 
     # Make the network and optimizer
-    net = LinNet(size=5, hid_features=16)
-    optimizer = tr.optim.SGD(net.parameters(), lr=0.001)
+    # net = LinNet(size=5, hid_features=16)
+    # optimizer = tr.optim.SGD(net.parameters(), lr=0.001)
 
     # Convert the states and their minimax utilities to tensors
     states, utilities = training_examples
@@ -156,5 +160,15 @@ if __name__ == "__main__":
             print("%d: %f, %f" % (epoch, training_error, testing_error))
         curves[0].append(training_error)
         curves[1].append(testing_error)
+    
+    x = tr.tensor(
+       [[ 1,  0,  0,  0,  0],
+        [ 1,  0,  0,  0,  1],
+        [ 1, -1, -1,  0, -1],
+        [-1,  1, -1,  0,  0],
+        [ 9,  1,  0,  1, -1]])
+    print(net(encode(x).unsqueeze(0)))
+    print(net(encode(x).unsqueeze(0)))
+    print(net(encode(x).unsqueeze(0)))
 
 

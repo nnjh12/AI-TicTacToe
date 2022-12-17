@@ -2,7 +2,8 @@
 # Code adapted from play_mancala.py
 
 from tictactoe_helpers import *
-from tictactoe_AI import *
+import tictactoe_AI as ai
+import tictactoe_NNAI as nnAi
 
 # TODO: implement get_board_size
 def get_board_size():
@@ -15,7 +16,7 @@ def get_board_size():
 
 # TODO: implement get_strategy
 def get_strategy(player):
-    strategies = ["human", "baseline AI", "MCTS"]
+    strategies = ["human", "baseline AI", "MCTS", "tree+NN AI"]
     prompt = "Choose a strategies for player %s (%s): " % (player,", ".join(strategies))
     while True:
         strategy = input(prompt)
@@ -58,14 +59,18 @@ def play_tictactoe():
                 state = perform_action(cur_player, action, state)
                 print("%s(human) chose %s" % (cur_player, str(action)))
             elif (cur_strategy == "baseline AI"): 
-                action = baseline_AI(state)
+                action = ai.baseline_AI(state)
                 state = perform_action(cur_player, action, state)
                 print("%s(baseline AI) chose %s" % (cur_player, str(action)))
+            elif (cur_strategy == "MCTS"): 
+                old_state = state
+                state = ai.mcts(state, 100)[0]
+                print("%s(MCTS) chose %s" % (cur_player, str(infer_action(old_state, state))))
             else:
                 old_state = state
-                state = mcts(state, 1000)[0]
-                print("%s(MCTS) chose %s" % (cur_player, str(infer_action(old_state, state))))
-        
+                state = nnAi.mcts_NN(state, 100)[0]
+                print("%s(tree+NN AI) chose %s" % (cur_player, str(infer_action(old_state, state))))
+
         print(state)
         game_score = score(state)
         if (game_score == 0): 
