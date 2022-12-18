@@ -64,9 +64,7 @@ def generate(num_examples, size, num_rollouts):
         states, result = random_game(size, num_rollouts)
         all_states += states
         all_results += [result] * len(states)
-    
-    print(all_results)
-
+    # print(all_results)
     return all_states, all_results
 
 # convert the state from string[] to tensor
