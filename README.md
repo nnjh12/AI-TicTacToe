@@ -18,11 +18,11 @@ with anaconda
 conda install numpy
 ```
 
-* Pytorch:
+* Pytorch<br />
 refer to [`this webpage`](https://pytorch.org/get-started/locally/) based on your preferences.
 
-* matplotlib:
-refer to [`this webpage`](https://matplotlib.org/stable/users/installing/index.html) based on your preferences.
+* matplotlib<br />
+refer to [`this webpage`](https://matplotlib.org/stable/users/installing/index.html) based on your preferences.<br />
 with pip
 ```
 python -m pip install -U pip
@@ -53,8 +53,8 @@ conda install matplotlib
     * Currently, 5 discontinuous marks in a row win the game, but this rule needs to be updated so that only 5 continuous marks win for any grid of 6x6 or greater.
 
 ## How to run the computer experiments
-* Monte Carlo Tree Search AI experiment
+* Monte Carlo Tree Search AI experiment<br />
 Run `experiment_MCTS.py`
 
-* Neural network experimental 
+* Neural network experimental <br />
 Run `experiment_NN.py`
