@@ -7,7 +7,7 @@
 * `play_mancala.py` from CIS667 HW2
 
 ## How to install dependencies
-* NumPy:
+* NumPy<br />
 with pip
 ```
 pip install numpy
@@ -23,6 +23,7 @@ refer to [`this webpage`](https://pytorch.org/get-started/locally/) based on you
 
 * matplotlib<br />
 refer to [`this webpage`](https://matplotlib.org/stable/users/installing/index.html) based on your preferences.<br />
+
 with pip
 ```
 python -m pip install -U pip
