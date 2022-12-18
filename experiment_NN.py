@@ -19,7 +19,6 @@ def experiment(num_simulates: int, _board_size: int, x_strategy, o_strategy):
     while(total_rounds < num_simulates):
         total_rounds += 1
         nodes_processed_per_game = 0 # number of nodes processed by MCTS for one game
-        nodes_processed_per_game_nn = 0 # number of nodes processed by tree+NN AI for one game
         while not game_over(state):
             cur_player = get_player(state)
             cur_strategy = strategies[cur_player == "O"]
@@ -27,8 +26,8 @@ def experiment(num_simulates: int, _board_size: int, x_strategy, o_strategy):
                 action = baseline_AI(state)
                 state = perform_action(cur_player, action, state)
             if (cur_strategy == "tree+NN AI"): 
-                state, nodes_processed_per_action_nn = mcts_NN(state, 100) # number of nodes processed by MCTS for one move to choose next action
-                nodes_processed_per_game_nn += nodes_processed_per_action_nn
+                state, nodes_processed_per_action = mcts_NN(state, 100) # number of nodes processed by MCTS for one move to choose next action
+                nodes_processed_per_game += nodes_processed_per_action
 
         game_score = score(state)
         score_track.append(game_score)
@@ -42,10 +41,10 @@ def experiment(num_simulates: int, _board_size: int, x_strategy, o_strategy):
     print("----- Results -----")
     print(" X(%s) wins: %s, O(%s) wins: %s, Tie: %s (out of %s games)" 
             % (x_strategy, total_score[0], o_strategy, total_score[1], total_rounds - sum(total_score), total_rounds))
-    print(" score over each game:\n%s" %(np.array(score_track).reshape(10, 10)))
+    #print(" score over each game:\n%s" %(np.array(score_track).reshape(10, 10)))
     histogram(score_track)
-    print(" number of nodes processed by tree+NN AI over each game:\n%s" %(np.array(num_nodes_track).reshape(10, 10)))
-    histogram(num_nodes_track)
+    #print(" number of nodes processed by tree+NN AI over each game:\n%s" %(np.array(num_nodes_track).reshape(10, 10)))
+    histogram_node(num_nodes_track)
     print("-------------------\n")
 
 def histogram(list):
@@ -58,10 +57,11 @@ def histogram(list):
 
 def histogram_node(list):
     x = np.array(list)
+    print(x)
     bin_size = int((max(list) - min(list))/10)
     bins = range(min(x), max(x), bin_size)
     plt.hist(x, bins = bins, color = "orange", edgecolor = "brown") 
     plt.show()
 
 if __name__ == "__main__":
-    experiment(100, 5, "baseline AI", "tree+NN AI")
+    experiment(100, 5, "tree+NN AI", "baseline AI")

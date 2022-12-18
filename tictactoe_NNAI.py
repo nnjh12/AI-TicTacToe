@@ -8,13 +8,19 @@ from tictactoe_NN import *
 # Make the network and optimizer
 net = LinNet(size=5, hid_features=16)
 optimizer = tr.optim.SGD(net.parameters(), lr=0.001)
+x = tr.tensor(
+       [[ 1,  0,  0,  0,  0],
+        [ 1,  0,  0,  0,  1],
+        [ 1, -1, -1,  0, -1],
+        [-1,  1, -1,  0,  0],
+        [ 9,  1,  0,  1, -1]])
 
 def training(num_examples=500):
     print("For tree+NN AI")
 
     # Generate a lot of training data
     print("Generate training data...")
-    training_examples = generate(num_examples, size=5, num_rollouts=50)
+    training_examples = generate(num_examples, size=5, num_rollouts=100)
 
     # augment training data
     print(len(training_examples[0]))
@@ -54,16 +60,10 @@ def training(num_examples=500):
             print("%d: %f" % (epoch, training_error))
         curves[0].append(training_error)
     
-    x = tr.tensor(
-       [[ 1,  0,  0,  0,  0],
-        [ 1,  0,  0,  0,  1],
-        [ 1, -1, -1,  0, -1],
-        [-1,  1, -1,  0,  0],
-        [ 9,  1,  0,  1, -1]])
+    print(net(encode(x).unsqueeze(0)))
     print(net(encode(x).unsqueeze(0)) == net(encode(x).unsqueeze(0)))
 
     print("Training finished...")
-
 
 training(500)
 

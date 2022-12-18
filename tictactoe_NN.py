@@ -12,7 +12,7 @@ from tictactoe_AI import *
 
 # Used to get a random state somewhere in the game tree for a training example
 def random_state(size):
-    depth = np.random.randint(1, 5)
+    depth = np.random.randint(1, 3)
     state = initial_state(size)
     for d in range(depth):
         cur_player = get_player(state)
@@ -24,14 +24,30 @@ def random_state(size):
 
 # play a game with each player using mcts
 # start from random state
-# return game states and final result
-def random_game(size, num_rollouts):
+# Collect states of O's turn and final result
+def random_game_initial(size, num_rollouts):
     state = random_state(size)
-    states = [tr.tensor(convertState(state))]
+    states = [convertState(state)]
     while not is_leaf(state):
         _state, _ = mcts(state, num_rollouts)
         state = _state
-        states.append(tr.tensor(convertState(state)))
+        states.append(convertState(state))
+    result = score(state)
+    # print(states, result)
+    return states, result
+
+def random_game(size, num_rollouts):
+    state = random_state(size)
+    states = [convertState(state)]
+    while not is_leaf(state):
+        cur_player = get_player(state)
+        if(cur_player == 'X'):
+            _state, _ = mcts(state, num_rollouts)
+            state = _state
+            states.append(convertState(state))
+        if(cur_player == 'O'):
+            action = baseline_AI(state)
+            state = perform_action(cur_player, action, state)
     result = score(state)
     # print(states, result)
     return states, result
@@ -48,6 +64,8 @@ def generate(num_examples, size, num_rollouts):
         states, result = random_game(size, num_rollouts)
         all_states += states
         all_results += [result] * len(states)
+    
+    print(all_results)
 
     return all_states, all_results
 
@@ -59,8 +77,8 @@ def convertState(state):
     state_W = (state == 'W').astype(int)*9
     state = np.add(state_X, state_O)
     state = np.add(state, state_W)
-    state = tr.tensor(state)
-    return state
+    state_tr = tr.tensor(state).clone().detach()
+    return state_tr
 
 # Used to convert a game state to a tensor encoding suitable for NN input
 # Uses one-hot encoding at each grid position
@@ -113,9 +131,9 @@ if __name__ == "__main__":
 
     # Generate a lot of training/testing data
     print("Training data:")
-    training_examples = generate(num_examples = 500, size=5, num_rollouts=50)
+    training_examples = generate(num_examples = 500, size=5, num_rollouts=100)
     print("\nTesting data:")
-    testing_examples = generate(num_examples = 500, size=5, num_rollouts=50)
+    testing_examples = generate(num_examples = 500, size=5, num_rollouts=100)
 
     # augment training data
     print(len(training_examples[0]))
