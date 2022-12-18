@@ -50,7 +50,7 @@ conda install matplotlib
     * In the grid, there is a 'wall' that neither player can use.
     * For a grid of 3x3, 4x4, or 5x5, the rule is the same as classic tic tac toe.
     * For any grid of 6x6 or greater, the goal is to get five in a row. (referred from [this article](https://www.thesprucecrafts.com/tic-tac-toe-game-rules-412170#:~:text=A%20relatively%20simple%20game%20usually,20%2Dby%2D20%20grid))
-    * Currently, 5 of discontinuous marks in a row win the game, but this rule need to be updated so that only 5 of continuous marks win for any grid of 6x6 or greater,
+    * Currently, 5 discontinuous marks in a row win the game, but this rule needs to be updated so that only 5 continuous marks win for any grid of 6x6 or greater.
 
 ## How to run the computer experiments
 * Monte Carlo Tree Search AI experiment
