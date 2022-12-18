@@ -3,6 +3,7 @@
 
 import numpy as np
 import torch as tr
+import matplotlib.pyplot as pt
 from tictactoe_helpers import *
 from tictactoe_AI import *
 
@@ -32,7 +33,7 @@ def random_game(size, num_rollouts):
         state = _state
         states.append(tr.tensor(convertState(state)))
     result = score(state)
-    print(states, result)
+    # print(states, result)
     return states, result
 
 # Used to generate a training data set
@@ -112,9 +113,9 @@ if __name__ == "__main__":
 
     # Generate a lot of training/testing data
     print("Training data:")
-    training_examples = generate(num_examples = 50, size=5, num_rollouts=50)
+    training_examples = generate(num_examples = 500, size=5, num_rollouts=50)
     print("\nTesting data:")
-    testing_examples = generate(num_examples = 50, size=5, num_rollouts=50)
+    testing_examples = generate(num_examples = 500, size=5, num_rollouts=50)
 
     # augment training data
     print(len(training_examples[0]))
@@ -167,8 +168,13 @@ if __name__ == "__main__":
         [ 1, -1, -1,  0, -1],
         [-1,  1, -1,  0,  0],
         [ 9,  1,  0,  1, -1]])
-    print(net(encode(x).unsqueeze(0)))
-    print(net(encode(x).unsqueeze(0)))
-    print(net(encode(x).unsqueeze(0)))
+    print(net(encode(x).unsqueeze(0)) == net(encode(x).unsqueeze(0)))
+
+    # visualize learning curves on train/test data
+    pt.plot(curves[0], 'b-')
+    pt.plot(curves[1], 'r-')
+    pt.plot()
+    pt.legend(["Train","Test"])
+    pt.show()
 
 

@@ -1,4 +1,5 @@
 # Code adapted from https://colab.research.google.com/drive/1JuNdI_zcT35MWSY4-h_2ZgH7IBe2TRYd?usp=sharing
+# Code adapted from https://colab.research.google.com/drive/1QF8IJHlZ597esIU-vmW7u9KARhyXIjOY?authuser=1
 
 import numpy as np
 from tictactoe_helpers import *
@@ -9,8 +10,10 @@ net = LinNet(size=5, hid_features=16)
 optimizer = tr.optim.SGD(net.parameters(), lr=0.001)
 
 def training(num_examples=500):
-    # Generate a lot of training/testing data
-    print("Training data:")
+    print("For tree+NN AI")
+
+    # Generate a lot of training data
+    print("Generate training data...")
     training_examples = generate(num_examples, size=5, num_rollouts=50)
 
     # augment training data
@@ -29,6 +32,7 @@ def training(num_examples=500):
     states, utilities = training_examples
     training_batch = tr.stack(tuple(map(encode, states))), tr.tensor(utilities)
 
+    print("Training start...")
     # Run the gradient descent iterations
     curves = [], []
     for epoch in range(10000):
@@ -56,9 +60,12 @@ def training(num_examples=500):
         [ 1, -1, -1,  0, -1],
         [-1,  1, -1,  0,  0],
         [ 9,  1,  0,  1, -1]])
-    print(net(encode(x).unsqueeze(0)))
-    print(net(encode(x).unsqueeze(0)))
-    print(net(encode(x).unsqueeze(0)))
+    print(net(encode(x).unsqueeze(0)) == net(encode(x).unsqueeze(0)))
+
+    print("Training finished...")
+
+
+training(500)
 
 class Node:
     def __init__(self, state):
