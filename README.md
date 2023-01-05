@@ -1,4 +1,4 @@
-# CIS667_Project (Tic Tac Toe)
+# Tic Tac Toe with Monte Carlo Tree Search and Neural Network
 ## Attribution
 * [`Minimax.ipynb`](https://colab.research.google.com/drive/1JhOppwXwm47yk-AK7y7L5WTaaNDgCWXD?authuser=1) from CIS667
 * [`MCTS.ipynb`](https://colab.research.google.com/drive/1JuNdI_zcT35MWSY4-h_2ZgH7IBe2TRYd?authuser=1) from CIS667
