@@ -1,12 +1,12 @@
 # Tic Tac Toe with Monte Carlo Tree Search and Neural Network
 
 ## Overview
-I implemented an AI system that plays tic-tac-toe. Users can choose their strategy from human, baseline AI, MCTS, or MCTS+NN AI.
+I implemented an AI system that plays tic-tac-toe. Users can choose their strategy from human, baseline AI, MCTS, or MCTS+NN.
 
 - Human: The player selects their own moves.
 - Baseline AI: Moves are chosen randomly.
 - MCTS (Monte-Carlo Tree Search): AI selects the next moves.
-- MCTS+NN AI: AI selects the next moves using a neural network.
+- MCTS+NN: AI selects the next moves using a neural network.
 
 For MCTS, the AI runs a number of simulations and updates the visited nodes' N (number of visits) and Q (quality) values. The child with the highest UCT value is chosen for the next move.
 
