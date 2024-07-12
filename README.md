@@ -12,6 +12,21 @@ For MCTS, the AI runs a number of simulations and updates the visited nodes' N (
 
 For MCTS+NN, the process is similar, but a trained neural network estimates the utility, replacing the Q value. 
 
+## Experiment Result
+### MCTS Performance
+I evaluated AI performance through experiments where MCTS competed against baseline AI across board sizes from 3x3 to 7x7. Results show MCTS outperformed baseline AI. Notably, MCTS demonstrated correct behavior without explicit rule teaching(impressive!), suggesting it effectively mimics correct strategy through expected utility values.
+
+- 3x3 Board: Wins: 91, Losses: 0, Ties: 9  (out of 100 games)
+- 4x4 Board: Wins: 75, Losses: 1, Ties: 24 (out of 100 games)
+- 5x5 Board: Wins: 43, Losses: 0, Ties: 57 (out of 100 games)
+- 6x6 Board: Wins: 94, Losses: 4, Ties: 2  (out of 100 games)
+- 7x7 Board: Wins: 92, Losses: 8, Ties: 0  (out of 100 games)
+
+### MCTS+NN Performance
+I conducted an experiment involving 100 games on a 5x5 board size. I used NN trained on 500 data points via gradient descent with 1 hidden layer and a learning rate of 0.001. AI performance lags behind MCTS, possibly due to data imbalance where negative outcomes are underrepresented.
+
+- 5x5 Board: Wins: 21, Losses: 12, Ties: 67 (out of 100 games)
+
 ## How to install dependencies
 NumPy
 * with pip
@@ -59,7 +74,7 @@ conda install matplotlib
     * For any grid of 6x6 or greater, the goal is to get five in a row. (referred from [this article](https://www.thesprucecrafts.com/tic-tac-toe-game-rules-412170#:~:text=A%20relatively%20simple%20game%20usually,20%2Dby%2D20%20grid))
     * Currently, 5 discontinuous marks in a row win the game, but this rule needs to be updated so that only 5 continuous marks win for any grid of 6x6 or greater.
 
-## How to run the computer experiments
+## How to run the experiments
 * Monte Carlo Tree Search AI experiment<br />
 Run `experiment_MCTS.py`
 
