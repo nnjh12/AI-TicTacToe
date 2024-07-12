@@ -12,7 +12,7 @@ For MCTS, the AI runs a number of simulations and updates the visited nodes' N (
 
 For MCTS+NN, the process is similar, but a trained neural network estimates the utility, replacing the Q value. 
 
-## Experiment Result
+## Experiment Results
 ### MCTS Performance
 I evaluated AI performance through experiments where MCTS competed against baseline AI across board sizes from 3x3 to 7x7. Results show MCTS outperformed baseline AI. Notably, MCTS demonstrated correct behavior without explicit rule teaching(impressive!), suggesting it effectively mimics correct strategy through expected utility values.
 
