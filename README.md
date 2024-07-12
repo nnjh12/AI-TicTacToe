@@ -1,7 +1,7 @@
 # Tic Tac Toe with Monte Carlo Tree Search and Neural Network
 
 ## Overview
-I implemented an AI system that plays tic-tac-toe. Users can choose their strategy from human, baseline AI, MCTS, or MCTS+NN.
+I implemented an AI that plays tic-tac-toe. Users can choose their strategy from human, baseline AI, MCTS, or MCTS+NN.
 
 - Human: The player selects their own moves.
 - Baseline AI: Moves are chosen randomly.
